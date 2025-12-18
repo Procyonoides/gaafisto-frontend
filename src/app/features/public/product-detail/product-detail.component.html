@@ -1,0 +1,77 @@
+<div class="product-detail-page">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item"><a routerLink="/products">Products</a></li>
+                <li class="breadcrumb-item active">{{ product?.name }}</li>
+            </ol>
+        </nav>
+
+        <div *ngIf="loading" class="text-center py-5">
+            <div class="spinner-border text-primary"></div>
+        </div>
+
+        <div *ngIf="product && !loading" class="row">
+            <div class="col-md-6">
+                <div class="product-image-main">
+                    <img [src]="getImageUrl(product.cover)" [alt]="product.name">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="product-detail-info">
+                    <h1>{{ product.name }}</h1>
+                    
+                    <div class="product-rating">
+                        <span class="stars">
+                            <i class="fa fa-star" *ngFor="let star of getStars(product.averageRating)"></i>
+                        </span>
+                        <span class="rating-value">{{ product.averageRating }} / 5.0</span>
+                    </div>
+
+                    <div class="product-price">
+                        <h2>Rp {{ formatPrice(product.price) }}</h2>
+                    </div>
+
+                    <div class="product-meta">
+                        <p><strong>Category:</strong> {{ product.category }}</p>
+                        <p><strong>Brand:</strong> {{ product.brand }}</p>
+                        <p><strong>Product ID:</strong> {{ product.itemId }}</p>
+                        <p><strong>Stock:</strong> 
+                            <span [class.text-success]="product.stock > 0" [class.text-danger]="product.stock === 0">
+                                {{ product.stock > 0 ? product.stock + ' available' : 'Out of stock' }}
+                            </span>
+                        </p>
+                    </div>
+
+                    <div class="product-description">
+                        <h5>Description</h5>
+                        <p>{{ product.description }}</p>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn btn-primary btn-lg" 
+                            [disabled]="product.stock === 0"
+                            (click)="addToCart()">
+                            <i class="fa fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-outline-secondary btn-lg">
+                            <i class="fa fa-heart"></i> Add to Wishlist
+                        </button>
+                    </div>
+
+                    <div class="rating-section" *ngIf="isAuthenticated">
+                        <h5>Rate this product</h5>
+                        <div class="star-rating">
+                            <i class="fa fa-star" 
+                            *ngFor="let star of [1,2,3,4,5]"
+                            [class.active]="star <= userRating"
+                            (click)="rateProduct(star)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

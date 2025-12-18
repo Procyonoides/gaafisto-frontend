@@ -1,1 +1,104 @@
-<p>products works!</p>
+<div class="products-page">
+    <div class="container">
+        <div class="page-header">
+            <h1>All Products</h1>
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active">Products</li>
+            </ol>
+            </nav>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <div class="sidebar">
+                    <h5>Filters</h5>
+                    
+                    <div class="filter-group">
+                        <h6>Search</h6>
+                        <input type="text" class="form-control" [(ngModel)]="searchQuery" 
+                            (ngModelChange)="applyFilters()" placeholder="Search products...">
+                    </div>
+
+                    <div class="filter-group">
+                        <h6>Category</h6>
+                        <select class="form-control" [(ngModel)]="selectedCategory" (ngModelChange)="applyFilters()">
+                            <option value="">All Categories</option>
+                            <option value="Action Figures">Action Figures</option>
+                            <option value="Building Sets & Blocks">Building Sets & Blocks</option>
+                            <option value="Model Kit">Model Kit</option>
+                            <option value="Video Games">Video Games</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <h6>Brand</h6>
+                        <select class="form-control" [(ngModel)]="selectedBrand" (ngModelChange)="applyFilters()">
+                            <option value="">All Brands</option>
+                            <option value="LEGO">LEGO</option>
+                            <option value="Hasbro">Hasbro</option>
+                            <option value="Bandai">Bandai</option>
+                            <option value="Mattel">Mattel</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Products Grid -->
+            <div class="col-md-9">
+                <div class="products-header">
+                    <p>Showing {{ products.length }} of {{ total }} products</p>
+                </div>
+
+                <div class="row" *ngIf="!loading">
+                    <div class="col-md-4 col-sm-6 mb-4" *ngFor="let product of products">
+                        <div class="product-card">
+                            <div class="product-image">
+                                <img [src]="getImageUrl(product.cover)" [alt]="product.name">
+                                <div class="product-overlay">
+                                    <button class="btn btn-light btn-sm" (click)="addToCart(product)">
+                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h5>
+                                    <a [routerLink]="['/products', product.itemId]">{{ product.name }}</a>
+                                </h5>
+                                <div class="product-rating">
+                                    <span class="stars">
+                                    <i class="fa fa-star" *ngFor="let star of getStars(product.averageRating)"></i>
+                                    </span>
+                                    <span>{{ product.averageRating }}</span>
+                                </div>
+                                <p class="product-price">Rp {{ formatPrice(product.price) }}</p>
+                                <p class="product-stock">Stock: {{ product.stock }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="loading" class="text-center py-5">
+                    <div class="spinner-border text-primary"></div>
+                </div>
+
+                <!-- Pagination -->
+                <nav *ngIf="totalPages > 1">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" [class.disabled]="currentPage === 1">
+                            <button class="page-link" (click)="changePage(currentPage - 1)">Previous</button>
+                        </li>
+                        <li class="page-item" *ngFor="let page of getPages()" [class.active]="page === currentPage">
+                            <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                            <button class="page-link" (click)="changePage(currentPage + 1)">Next</button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
