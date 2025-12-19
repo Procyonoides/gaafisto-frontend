@@ -1,0 +1,118 @@
+<div class="checkout-page">
+  <div class="container">
+    <div class="breadcrumb-2">
+      <ol class="breadcrumb">
+        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/cart">Cart</a></li>
+        <li class="active">Checkout</li>
+      </ol>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="checkout-form">
+          <h3>Shipping Information</h3>
+          <div [formGroup]="checkoutForm">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" class="form-control" formControlName="fullName"
+                [class.is-invalid]="submitted && f['fullName'].errors">
+              <div *ngIf="submitted && f['fullName'].errors" class="invalid-feedback">
+                Full name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="text" class="form-control" formControlName="phone"
+                [class.is-invalid]="submitted && f['phone'].errors">
+              <div *ngIf="submitted && f['phone'].errors" class="invalid-feedback">
+                Phone number is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Address *</label>
+              <textarea class="form-control" rows="3" formControlName="address"
+                [class.is-invalid]="submitted && f['address'].errors"></textarea>
+              <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+                Address is required
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>City *</label>
+                  <input type="text" class="form-control" formControlName="city"
+                    [class.is-invalid]="submitted && f['city'].errors">
+                  <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
+                    City is required
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Postal Code *</label>
+                  <input type="text" class="form-control" formControlName="postalCode"
+                    [class.is-invalid]="submitted && f['postalCode'].errors">
+                  <div *ngIf="submitted && f['postalCode'].errors" class="invalid-feedback">
+                    Postal code is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          
+          <div class="summary-items">
+            <div class="summary-item" *ngFor="let item of cartItems">
+              <div class="item-info">
+                <img [src]="getImageUrl(item.product.cover)" [alt]="item.product.name">
+                <div>
+                  <h6>{{ item.product.name }}</h6>
+                  <p>Qty: {{ item.quantity }} x Rp {{ formatPrice(item.product.price) }}</p>
+                </div>
+              </div>
+              <div class="item-price">
+                Rp {{ formatPrice(item.product.price * item.quantity) }}
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="summary-totals">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>Rp {{ formatPrice(getSubtotal()) }}</span>
+            </div>
+            <div class="summary-row">
+              <span>Tax</span>
+              <span>Rp 2,000</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span class="text-success">FREE</span>
+            </div>
+            <hr>
+            <div class="summary-row total">
+              <span>Total</span>
+              <span>Rp {{ formatPrice(getTotal()) }}</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block" (click)="onSubmit()" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+            {{ loading ? 'Processing...' : 'Place Order' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

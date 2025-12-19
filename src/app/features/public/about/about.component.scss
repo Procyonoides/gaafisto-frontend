@@ -1,0 +1,135 @@
+.about-page {
+  padding: 40px 0;
+  min-height: 80vh;
+}
+
+.about-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+  .title {
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .content-box {
+    h4 {
+      color: #333;
+      font-weight: 600;
+      margin-top: 25px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #666;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: 10px 0;
+        color: #666;
+
+        i {
+          color: #28a745;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.contact-info-box {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+
+  .title {
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+
+  .info-content {
+    .info-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #f0f0f0;
+
+      &:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      i {
+        font-size: 24px;
+        color: #667eea;
+        width: 30px;
+      }
+
+      h5 {
+        color: #333;
+        font-weight: 600;
+        margin: 0 0 5px 0;
+        font-size: 16px;
+      }
+
+      p {
+        color: #666;
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+    }
+  }
+}
+
+.social-networks {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+  .title {
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 15px;
+
+    a {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      text-decoration: none;
+      transition: all 0.3s;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+    }
+  }
+}

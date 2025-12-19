@@ -1,0 +1,287 @@
+// Admin Orders SCSS
+.admin-orders-page {
+  padding: 20px;
+  
+  .page-header {
+    margin-bottom: 30px;
+    
+    h2 {
+      margin: 0;
+      color: #333;
+      font-weight: 600;
+    }
+  }
+  
+  .filters-section {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    
+    .results-count {
+      margin: 0;
+      padding-top: 8px;
+      color: #666;
+    }
+  }
+  
+  .orders-table {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    
+    table {
+      margin: 0;
+      
+      thead {
+        background: #f8f9fa;
+        
+        th {
+          font-weight: 600;
+          color: #333;
+          border-bottom: 2px solid #dee2e6;
+        }
+      }
+      
+      .customer-info {
+        display: flex;
+        flex-direction: column;
+        
+        strong {
+          color: #333;
+        }
+        
+        small {
+          color: #666;
+          font-size: 12px;
+        }
+      }
+      
+      .items-preview {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        
+        img {
+          width: 40px;
+          height: 40px;
+          object-fit: cover;
+          border-radius: 4px;
+        }
+        
+        .more-items {
+          font-size: 12px;
+          color: #666;
+          font-weight: 600;
+        }
+      }
+      
+      .total-amount {
+        color: #667eea;
+        font-size: 16px;
+      }
+      
+      .action-buttons {
+        .form-control-sm {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+// Admin Products SCSS
+.admin-products-page {
+  padding: 20px;
+  
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    
+    h2 {
+      margin: 0;
+      color: #333;
+      font-weight: 600;
+    }
+  }
+  
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    
+    .product-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      
+      &:hover {
+        transform: translateY(-5px);
+        
+        .product-overlay {
+          opacity: 1;
+        }
+      }
+      
+      .product-image {
+        position: relative;
+        height: 250px;
+        overflow: hidden;
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        
+        .product-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0,0,0,0.7);
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s;
+        }
+      }
+      
+      .product-info {
+        padding: 15px;
+        
+        .product-id {
+          font-size: 12px;
+          color: #666;
+        }
+        
+        h5 {
+          margin: 10px 0;
+          font-size: 16px;
+          font-weight: 600;
+          height: 40px;
+          overflow: hidden;
+        }
+        
+        .product-meta {
+          display: flex;
+          gap: 5px;
+          margin-bottom: 10px;
+          
+          .badge {
+            font-size: 11px;
+            padding: 4px 8px;
+          }
+        }
+        
+        .product-details {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 10px;
+          
+          .price {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 18px;
+          }
+          
+          .stock {
+            color: #666;
+            font-size: 14px;
+          }
+        }
+        
+        .product-rating {
+          color: #ffc107;
+          font-size: 14px;
+          
+          i {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Modal Styles
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1050;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  
+  &.show {
+    display: block;
+  }
+  
+  .modal-dialog {
+    position: relative;
+    margin: 30px auto;
+    max-width: 800px;
+  }
+  
+  .modal-content {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  
+  .modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #dee2e6;
+    
+    .modal-title {
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    .close {
+      background: none;
+      border: none;
+      font-size: 30px;
+      line-height: 1;
+      cursor: pointer;
+      
+      &:hover {
+        color: #667eea;
+      }
+    }
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-footer {
+    padding: 20px;
+    border-top: 1px solid #dee2e6;
+  }
+}
+
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  
+  &.show {
+    display: block;
+  }
+}

@@ -1,1 +1,70 @@
-<p>orders works!</p>
+<div class="orders-page">
+  <div class="container">
+    <div class="page-header">
+      <h1>My Orders</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="/user/dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item active">Orders</li>
+        </ol>
+      </nav>
+    </div>
+
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="!loading && orders.length === 0" class="empty-orders">
+      <i class="fa fa-shopping-bag fa-5x"></i>
+      <h3>No orders yet</h3>
+      <p>Start shopping and your orders will appear here</p>
+      <a routerLink="/products" class="btn btn-primary">Browse Products</a>
+    </div>
+
+    <div *ngIf="!loading && orders.length > 0" class="orders-list">
+      <div class="order-card" *ngFor="let order of orders">
+        <div class="order-header">
+          <div class="order-info">
+            <h5>Order #{{ order._id.substring(order._id.length - 8) }}</h5>
+            <p>Placed on {{ formatDate(order.createdAt) }}</p>
+          </div>
+          <div class="order-status">
+            <span class="badge" [ngClass]="getStatusClass(order.status)">
+              {{ order.status | uppercase }}
+            </span>
+          </div>
+        </div>
+
+        <div class="order-items">
+          <div class="order-item" *ngFor="let item of order.items">
+            <img [src]="getImageUrl(item.product.cover)" [alt]="item.product.name">
+            <div class="item-details">
+              <h6>{{ item.product.name }}</h6>
+              <p>Quantity: {{ item.quantity }}</p>
+              <p class="price">Rp {{ formatPrice(item.price) }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-footer">
+          <div class="order-total">
+            <span>Total Amount:</span>
+            <span class="amount">Rp {{ formatPrice(order.totalAmount) }}</span>
+          </div>
+          <div class="order-actions">
+            <button class="btn btn-outline-primary btn-sm" 
+              [routerLink]="['/user/orders', order._id]">
+              View Details
+            </button>
+            <button *ngIf="order.status === 'pending'" 
+              class="btn btn-outline-danger btn-sm" 
+              (click)="cancelOrder(order._id)">
+              Cancel Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

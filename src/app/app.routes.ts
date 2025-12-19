@@ -32,6 +32,10 @@ export const routes: Routes = [
     loadComponent: () => import('./features/public/about/about.component').then(m => m.AboutComponent)
   },
   {
+    path: 'contact',
+    loadComponent: () => import('./features/public/contact/contact.component').then(m => m.ContactComponent)
+  },
+  {
     path: 'user',
     canActivate: [authGuard],
     children: [
@@ -39,6 +43,10 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./features/user/dashboard/dashboard.component').then(m => m.DashboardComponent)
       },
+      {
+      path: 'checkout',
+        loadComponent: () => import('./features/user/checkout/checkout.component').then(m => m.CheckoutComponent)
+        },
       {
         path: 'orders',
         loadComponent: () => import('./features/user/orders/orders.component').then(m => m.OrdersComponent)

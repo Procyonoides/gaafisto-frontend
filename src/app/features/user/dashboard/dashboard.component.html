@@ -1,1 +1,180 @@
-<p>dashboard works!</p>
+<div class="user-dashboard">
+  <div class="container">
+    <div class="page-header">
+      <h2>Welcome, {{ currentUser?.firstName }}!</h2>
+      <p class="text-muted">Manage your account and orders</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="stat-card stat-primary">
+          <div class="stat-icon">
+            <i class="fa fa-shopping-bag"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ stats.totalOrders }}</h3>
+            <p>Total Orders</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-card stat-warning">
+          <div class="stat-icon">
+            <i class="fa fa-clock"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ stats.pendingOrders }}</h3>
+            <p>Pending Orders</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-card stat-success">
+          <div class="stat-icon">
+            <i class="fa fa-check-circle"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ stats.completedOrders }}</h3>
+            <p>Completed</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-card stat-info">
+          <div class="stat-icon">
+            <i class="fa fa-wallet"></i>
+          </div>
+          <div class="stat-info">
+            <h3>Rp {{ formatPrice(stats.totalSpent) }}</h3>
+            <p>Total Spent</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <div class="quick-actions">
+          <h4>Quick Actions</h4>
+          <div class="action-buttons">
+            <a routerLink="/products" class="action-btn">
+              <i class="fa fa-shopping-cart"></i>
+              <span>Continue Shopping</span>
+            </a>
+            <a routerLink="/user/orders" class="action-btn">
+              <i class="fa fa-list"></i>
+              <span>View All Orders</span>
+            </a>
+            <a routerLink="/user/profile" class="action-btn">
+              <i class="fa fa-user-edit"></i>
+              <span>Edit Profile</span>
+            </a>
+            <a routerLink="/cart" class="action-btn">
+              <i class="fa fa-shopping-bag"></i>
+              <span>My Cart</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h5>Recent Orders</h5>
+            <a routerLink="/user/orders" class="view-all">View All</a>
+          </div>
+          <div class="card-body">
+            <div *ngIf="loading" class="text-center py-4">
+              <div class="spinner-border text-primary"></div>
+            </div>
+
+            <div *ngIf="!loading && recentOrders.length === 0" class="text-center py-4">
+              <i class="fa fa-inbox fa-3x text-muted"></i>
+              <p class="mt-3">No orders yet</p>
+              <a routerLink="/products" class="btn btn-primary btn-sm">Start Shopping</a>
+            </div>
+
+            <div *ngIf="!loading && recentOrders.length > 0" class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let order of recentOrders">
+                    <td><strong>#{{ order._id.substring(order._id.length - 8) }}</strong></td>
+                    <td>{{ formatDate(order.createdAt) }}</td>
+                    <td><strong>Rp {{ formatPrice(order.totalAmount) }}</strong></td>
+                    <td>
+                      <span class="badge" [ngClass]="getStatusClass(order.status)">
+                        {{ order.status | uppercase }}
+                      </span>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/user/orders', order._id]" class="btn btn-sm btn-outline-primary">
+                        View
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h5>Account Info</h5>
+          </div>
+          <div class="card-body">
+            <div class="profile-info">
+              <div class="info-item">
+                <i class="fa fa-user"></i>
+                <div>
+                  <label>Name</label>
+                  <p>{{ currentUser?.firstName }} {{ currentUser?.lastName }}</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="fa fa-envelope"></i>
+                <div>
+                  <label>Email</label>
+                  <p>{{ currentUser?.email }}</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="fa fa-venus-mars"></i>
+                <div>
+                  <label>Gender</label>
+                  <p>{{ currentUser?.gender }}</p>
+                </div>
+              </div>
+              <div class="info-item">
+                <i class="fa fa-calendar"></i>
+                <div>
+                  <label>Member Since</label>
+                  <p>{{ formatDate(currentUser?.createdAt!) }}</p>
+                </div>
+              </div>
+            </div>
+            <a routerLink="/user/profile" class="btn btn-primary btn-block">
+              Edit Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

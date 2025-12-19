@@ -1,1 +1,135 @@
-<p>products works!</p>
+<div class="admin-products-page">
+  <div class="container-fluid">
+    <div class="page-header">
+      <div>
+        <h2>Products Management</h2>
+        <p class="text-muted">Manage all products in store</p>
+      </div>
+      <button class="btn btn-primary" (click)="openAddModal()">
+        <i class="fa fa-plus"></i> Add New Product
+      </button>
+    </div>
+
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="!loading" class="products-grid">
+      <div class="product-card" *ngFor="let product of products">
+        <div class="product-image">
+          <img [src]="getImageUrl(product.cover)" [alt]="product.name">
+          <div class="product-overlay">
+            <button class="btn btn-sm btn-light" (click)="openEditModal(product)">
+              <i class="fa fa-edit"></i> Edit
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="deleteProduct(product._id)">
+              <i class="fa fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+        <div class="product-info">
+          <span class="product-id">ID: {{ product.itemId }}</span>
+          <h5>{{ product.name }}</h5>
+          <div class="product-meta">
+            <span class="badge bg-secondary">{{ product.category }}</span>
+            <span class="badge bg-info">{{ product.brand }}</span>
+          </div>
+          <div class="product-details">
+            <div class="price">Rp {{ formatPrice(product.price) }}</div>
+            <div class="stock">Stock: {{ product.stock }}</div>
+          </div>
+          <div class="product-rating">
+            <i class="fa fa-star"></i> {{ product.averageRating || 0 }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Add/Edit Product -->
+<div class="modal" [class.show]="showModal" *ngIf="showModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h5>
+        <button type="button" class="close" (click)="closeModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div [formGroup]="productForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Product ID *</label>
+                <input type="text" class="form-control" formControlName="itemId" 
+                  [disabled]="isEditMode">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Product Name *</label>
+                <input type="text" class="form-control" formControlName="name">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Category *</label>
+                <select class="form-control" formControlName="category">
+                  <option value="">Select Category</option>
+                  <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Brand *</label>
+                <select class="form-control" formControlName="brand">
+                  <option value="">Select Brand</option>
+                  <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Price (Rp) *</label>
+                <input type="number" class="form-control" formControlName="price">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Stock *</label>
+                <input type="number" class="form-control" formControlName="stock">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Description *</label>
+            <textarea class="form-control" rows="4" formControlName="description"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Product Image {{ isEditMode ? '(Leave empty to keep current image)' : '*' }}</label>
+            <input type="file" class="form-control" accept="image/*" (change)="onFileSelected($event)">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()" 
+          [disabled]="productForm.invalid || (!isEditMode && !selectedFile)">
+          {{ isEditMode ? 'Update' : 'Create' }} Product
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop" [class.show]="showModal" *ngIf="showModal" (click)="closeModal()"></div>
