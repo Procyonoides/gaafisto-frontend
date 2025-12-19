@@ -13,3 +13,4 @@ export const roleGuard: CanActivateFn = (route, state) => {
   router.navigate(['/']);
   return false;
 };
+export const adminGuard: CanActivateFn = roleGuard;
