@@ -21,11 +21,12 @@
       "ES2022",
       "dom"
     ],
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "@/app/*": ["src/app/*"],
-      "@/environments/*": ["src/environments/*"]
+      "@/environments/*": ["src/environments/*"],
+      "@/assets/*": ["src/assets/*"]
     }
   },
   "angularCompilerOptions": {

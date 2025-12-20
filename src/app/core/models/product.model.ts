@@ -10,6 +10,12 @@ export interface Product {
   description: string;
   averageRating: number;
   createdAt: Date;
+  
+  // Optional properties for display purposes
+  discount?: number;  // For flash sale/promo display
+  sold?: number;      // Number of items sold
+  isNew?: boolean;    // New arrival flag
+  isFeatured?: boolean; // Featured product flag
 }
 
 export interface ProductsResponse {
@@ -25,4 +31,6 @@ export interface ProductQueryParams {
   category?: string;
   brand?: string;
   search?: string;
+  sortBy?: 'price' | 'rating' | 'newest' | 'popular';
+  order?: 'asc' | 'desc';
 }
