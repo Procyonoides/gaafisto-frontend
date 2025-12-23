@@ -6,7 +6,7 @@ import { OrderService } from '@/app/core/services/order.service';
 import { NotificationService } from '@/app/core/services/notification.service';
 import { environment } from '@/environments/environment';
 
-// Define proper interfaces with user property
+// Define proper interfaces with optional user property
 interface Product {
   _id: string;
   name: string;
@@ -28,7 +28,7 @@ interface User {
 
 interface Order {
   _id: string;
-  user: User; // Make it required, not optional
+  user?: User; // ← Buat optional dengan tanda ?
   items: OrderItem[];
   totalAmount: number;
   status: 'pending' | 'processing' | 'completed' | 'cancelled';
@@ -101,9 +101,7 @@ export class OrdersComponent implements OnInit {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
 
-  // Fix: Accept Event parameter and extract value safely
   updateOrderStatus(orderId: string, event: Event): void {
-    // Cast EventTarget to HTMLSelectElement to access value
     const selectElement = event.target as HTMLSelectElement;
     const newStatus = selectElement?.value;
     
@@ -113,7 +111,6 @@ export class OrdersComponent implements OnInit {
     }
 
     if (!confirm(`Change order status to ${newStatus}?`)) {
-      // Reset select value if user cancels
       this.loadOrders();
       return;
     }
@@ -126,7 +123,7 @@ export class OrdersComponent implements OnInit {
       error: (error) => {
         console.error('Error updating order:', error);
         this.notificationService.error(error.error?.message || 'Failed to update status');
-        this.loadOrders(); // Reload to reset UI
+        this.loadOrders();
       }
     });
   }

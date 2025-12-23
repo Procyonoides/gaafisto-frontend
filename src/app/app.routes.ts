@@ -60,6 +60,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     canActivate: [authGuard, adminGuard],
+    loadComponent: () => import('./features/admin/layout/layout.component').then(m => m.LayoutComponent),
     children: [
       {
         path: 'dashboard',
@@ -72,6 +73,10 @@ export const routes: Routes = [
       {
         path: 'orders',
         loadComponent: () => import('./features/admin/orders/orders.component').then(m => m.OrdersComponent)
+      },
+      {
+        path: 'categories',
+        loadComponent: () => import('./features/admin/categories/categories.component').then(m => m.CategoriesComponent)
       }
     ]
   },
