@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CartService } from '@/app/core/services/cart.service';
 import { OrderService } from '@/app/core/services/order.service';
+import { ShippingService, Shipping } from '@/app/core/services/shipping.service';
 import { NotificationService } from '@/app/core/services/notification.service';
 import { CartItem } from '@/app/core/models/cart.model';
 import { environment } from '@/environments/environment';
@@ -11,7 +12,7 @@ import { environment } from '@/environments/environment';
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, FormsModule],
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.scss'
 })
@@ -20,11 +21,14 @@ export class CheckoutComponent implements OnInit {
   cartItems: CartItem[] = [];
   submitted = false;
   loading = false;
+  shippings: Shipping[] = [];
+  selectedShippingId = '';
 
   constructor(
     private fb: FormBuilder,
     private cartService: CartService,
     private orderService: OrderService,
+    private shippingService: ShippingService,
     private notificationService: NotificationService,
     private router: Router
   ) {
@@ -44,6 +48,11 @@ export class CheckoutComponent implements OnInit {
         this.router.navigate(['/cart']);
       }
     });
+    this.shippingService.getShippings().subscribe({
+      next: (response) => {
+        this.shippings = response.shippings || [];
+      }
+    });
   }
 
   get f() { return this.checkoutForm.controls; }
@@ -52,8 +61,13 @@ export class CheckoutComponent implements OnInit {
     return this.cartService.getCartTotal();
   }
 
+  getShippingCost(): number {
+    const shipping = this.shippings.find(s => s._id === this.selectedShippingId);
+    return shipping ? shipping.biaya : 0;
+  }
+
   getTotal(): number {
-    return this.getSubtotal() + 2000;
+    return this.getSubtotal() + 2000 + this.getShippingCost();
   }
 
   onSubmit(): void {

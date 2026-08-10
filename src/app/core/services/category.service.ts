@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { environment } from '@/environments/environment';
 
 export interface Category {
-  id_kategori?: number;
-  kategori: string;
+  _id?: string;
+  name: string;
+  description?: string;
 }
 
 export interface CategoriesResponse {
