@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CartService } from '@/app/core/services/cart.service';
+import { OrderService } from '@/app/core/services/order.service';
 import { ShippingService, Shipping } from '@/app/core/services/shipping.service';
 import { NotificationService } from '@/app/core/services/notification.service';
 import { CartItem } from '@/app/core/models/cart.model';
@@ -26,6 +27,7 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private cartService: CartService,
+    private orderService: OrderService,
     private shippingService: ShippingService,
     private notificationService: NotificationService,
     private router: Router
@@ -85,6 +87,18 @@ export class CheckoutComponent implements OnInit {
       })),
       shippingAddress: this.checkoutForm.value
     };
+
+    this.orderService.createOrder(orderData).subscribe({
+      next: (order) => {
+        this.notificationService.success('Order placed successfully!');
+        this.cartService.clearCart();
+        this.router.navigate(['/user/orders']);
+      },
+      error: (error) => {
+        this.loading = false;
+        this.notificationService.error(error.error?.message || 'Failed to place order');
+      }
+    });
   }
 
   getImageUrl(filename: string): string {
