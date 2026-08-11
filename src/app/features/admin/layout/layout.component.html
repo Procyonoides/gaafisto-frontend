@@ -1,1 +1,38 @@
-<p>layout works!</p>
+<div class="admin-wrapper">
+  <nav class="admin-sidebar">
+    <div class="sidebar-brand">
+      <h4>Gaafisto Admin</h4>
+    </div>
+    <ul class="sidebar-nav">
+      <li [class.active]="isActiveRoute('/admin/dashboard')">
+        <a routerLink="/admin/dashboard"><i class="fa fa-home"></i> Dashboard</a>
+      </li>
+      <li [class.active]="isActiveRoute('/admin/products')">
+        <a routerLink="/admin/products"><i class="fa fa-box"></i> Products</a>
+      </li>
+      <li [class.active]="isActiveRoute('/admin/categories')">
+        <a routerLink="/admin/categories"><i class="fa fa-tags"></i> Categories</a>
+      </li>
+      <li [class.active]="isActiveRoute('/admin/shipping')">
+        <a routerLink="/admin/shipping"><i class="fa fa-truck"></i> Shipping</a>
+      </li>
+      <li [class.active]="isActiveRoute('/admin/orders')">
+        <a routerLink="/admin/orders"><i class="fa fa-shopping-cart"></i> Orders</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="admin-content">
+    <header class="admin-topbar">
+      <div class="topbar-user" *ngIf="currentUser">
+        <span>{{ currentUser.firstName }} {{ currentUser.lastName }}</span>
+        <span class="badge" *ngIf="unreadMessages > 0">{{ unreadMessages }}</span>
+        <button class="btn btn-sm btn-outline-danger" (click)="logout()">Logout</button>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -25,4 +25,16 @@ export class ShippingService {
   getShippings(): Observable<ShippingsResponse> {
     return this.http.get<ShippingsResponse>(`${environment.apiUrl}/shipping`);
   }
+
+  createShipping(data: { wilayah: string; biaya: number; kurir?: string }): Observable<Shipping> {
+    return this.http.post<Shipping>(`${environment.apiUrl}/shipping`, data);
+  }
+
+  updateShipping(id: string, data: { wilayah: string; biaya: number; kurir?: string }): Observable<Shipping> {
+    return this.http.put<Shipping>(`${environment.apiUrl}/shipping/${id}`, data);
+  }
+
+  deleteShipping(id: string): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/shipping/${id}`);
+  }
 }

@@ -5,14 +5,14 @@
 </div>
 
 <!-- Stats Cards -->
-<div class="row mb-4">
+<div class="row mb-4" *ngIf="stats">
   <div class="col-md-3">
     <div class="stat-card stat-primary">
       <div class="stat-icon">
         <i class="fa fa-shopping-cart"></i>
       </div>
       <div class="stat-info">
-        <h3>1,234</h3>
+        <h3>{{ stats.totalOrders }}</h3>
         <p>Total Orders</p>
       </div>
     </div>
@@ -23,7 +23,7 @@
         <i class="fa fa-money-bill"></i>
       </div>
       <div class="stat-info">
-        <h3>Rp 45M</h3>
+        <h3>Rp {{ formatPrice(stats.totalRevenue) }}</h3>
         <p>Total Revenue</p>
       </div>
     </div>
@@ -34,7 +34,7 @@
         <i class="fa fa-box"></i>
       </div>
       <div class="stat-info">
-        <h3>567</h3>
+        <h3>{{ stats.totalProducts }}</h3>
         <p>Total Products</p>
       </div>
     </div>
@@ -45,15 +45,54 @@
         <i class="fa fa-users"></i>
       </div>
       <div class="stat-info">
-        <h3>890</h3>
+        <h3>{{ stats.totalUsers }}</h3>
         <p>Total Users</p>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Visitor Stats -->
+<div class="row mb-4" *ngIf="stats">
+  <div class="col-md-3">
+    <div class="stat-card stat-primary">
+      <div class="stat-icon">
+        <i class="fa fa-eye"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.visitorStats.todayVisitors }}</h3>
+        <p>Pengunjung Hari Ini</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card stat-success">
+      <div class="stat-icon">
+        <i class="fa fa-chart-line"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.visitorStats.totalVisitors }}</h3>
+        <p>Total Pengunjung</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="stat-card stat-warning">
+      <div class="stat-icon">
+        <i class="fa fa-circle"></i>
+      </div>
+      <div class="stat-info">
+        <h3>{{ stats.visitorStats.onlineVisitors }}</h3>
+        <p>Online Sekarang</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="text-center p-4">Loading...</div>
+
 <!-- Recent Orders -->
-<div class="card mb-4">
+<div class="card mb-4" *ngIf="stats">
   <div class="card-header">
     <h5>Recent Orders</h5>
   </div>
@@ -68,31 +107,19 @@
             <th>Amount</th>
             <th>Status</th>
             <th>Date</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>#ORD-001</td>
-            <td>John Doe</td>
-            <td>LEGO Star Wars</td>
-            <td>Rp 1,500,000</td>
-            <td><span class="badge bg-success">Completed</span></td>
-            <td>2024-01-15</td>
-            <td>
-              <button class="btn btn-sm btn-primary">View</button>
-            </td>
+          <tr *ngFor="let order of stats.recentOrders" routerLink="/admin/orders" style="cursor: pointer;">
+            <td>#{{ order._id.slice(-6).toUpperCase() }}</td>
+            <td>{{ order.user?.firstName }} {{ order.user?.lastName }}</td>
+            <td>{{ getProductLabel(order) }}</td>
+            <td>Rp {{ formatPrice(order.totalAmount) }}</td>
+            <td><span class="badge">{{ order.status }}</span></td>
+            <td>{{ order.createdAt | date:'yyyy-MM-dd' }}</td>
           </tr>
-          <tr>
-            <td>#ORD-002</td>
-            <td>Jane Smith</td>
-            <td>Gundam Model Kit</td>
-            <td>Rp 800,000</td>
-            <td><span class="badge bg-warning">Processing</span></td>
-            <td>2024-01-14</td>
-            <td>
-              <button class="btn btn-sm btn-primary">View</button>
-            </td>
+          <tr *ngIf="stats.recentOrders.length === 0">
+            <td colspan="6" class="text-center">Belum ada order</td>
           </tr>
         </tbody>
       </table>

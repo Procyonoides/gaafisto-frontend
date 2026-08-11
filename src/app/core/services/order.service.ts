@@ -34,6 +34,26 @@ export interface OrdersResponse {
   totalPages: number;
 }
 
+export interface SellerOrderItem {
+  product: any;
+  quantity: number;
+  price: number;
+}
+
+export interface SellerOrder {
+  _id: string;
+  user: any;
+  status: string;
+  createdAt: Date;
+  items: SellerOrderItem[];
+  mySubtotal: number;
+}
+
+export interface SellerOrdersResponse {
+  orders: SellerOrder[];
+  total: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -53,6 +73,10 @@ export class OrderService {
     let url = `${environment.apiUrl}/orders?page=${page}&limit=${limit}`;
     if (status) url += `&status=${status}`;
     return this.http.get<OrdersResponse>(url);
+  }
+
+  getSellerOrders(): Observable<SellerOrdersResponse> {
+    return this.http.get<SellerOrdersResponse>(`${environment.apiUrl}/orders/seller-orders`);
   }
 
   getOrderById(orderId: string): Observable<Order> {

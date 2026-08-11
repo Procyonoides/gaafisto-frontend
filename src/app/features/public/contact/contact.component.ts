@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from '@/app/core/services/notification.service';
 import { environment } from '@/environments/environment';
+import { Profile } from '@/app/core/models/profile.model';
+import { Contact, ContactMessage } from '@/app/core/models/contact.model';
 
 @Component({
   selector: 'app-contact',
@@ -15,8 +17,8 @@ import { environment } from '@/environments/environment';
 })
 export class ContactComponent implements OnInit {
   contactForm: FormGroup;
-  profile: any = {};
-  contact: any = {};
+  profile: Profile | null = null;
+  contact: Contact | null = null;
   submitted = false;
   loading = false;
 
@@ -41,13 +43,14 @@ export class ContactComponent implements OnInit {
   get f() { return this.contactForm.controls; }
 
   loadProfile(): void {
-    this.http.get(`${environment.apiUrl}/profile`).subscribe({
+    this.http.get<Profile>(`${environment.apiUrl}/profile`).subscribe({
       next: (data) => {
         this.profile = data;
       },
       error: () => {
         this.profile = {
           namaToko: 'Gaafisto',
+          description: 'Your trusted online toy store with the best collection of action figures, building sets, model kits, and video games.',
           alamatToko: 'Jl. Example No. 123',
           kotaToko: 'Jakarta',
           provinsiToko: 'DKI Jakarta',
@@ -58,7 +61,7 @@ export class ContactComponent implements OnInit {
   }
 
   loadContact(): void {
-    this.http.get(`${environment.apiUrl}/contact`).subscribe({
+    this.http.get<Contact>(`${environment.apiUrl}/contact`).subscribe({
       next: (data) => {
         this.contact = data;
       },
@@ -86,7 +89,7 @@ export class ContactComponent implements OnInit {
 
     this.loading = true;
 
-    this.http.post(`${environment.apiUrl}/contact/send`, this.contactForm.value).subscribe({
+    this.http.post<ContactMessage>(`${environment.apiUrl}/contact/send`, this.contactForm.value as ContactMessage).subscribe({
       next: () => {
         this.notificationService.success('Message sent successfully! We will contact you soon.');
         this.contactForm.reset();

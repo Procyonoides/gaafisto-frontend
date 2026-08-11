@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { adminGuard } from './core/guards/role.guard';
+import { sellerGuard } from './core/guards/seller.guard';
 
 export const routes: Routes = [
     {
@@ -77,6 +78,25 @@ export const routes: Routes = [
       {
         path: 'categories',
         loadComponent: () => import('./features/admin/categories/categories.component').then(m => m.CategoriesComponent)
+      },
+      {
+        path: 'shipping',
+        loadComponent: () => import('./features/admin/shipping/shipping.component').then(m => m.ShippingComponent)
+      }
+    ]
+  },
+  {
+    path: 'seller',
+    canActivate: [authGuard, sellerGuard],
+    loadComponent: () => import('./features/seller/layout/layout.component').then(m => m.SellerLayoutComponent),
+    children: [
+      {
+        path: 'products',
+        loadComponent: () => import('./features/seller/products/products.component').then(m => m.SellerProductsComponent)
+      },
+      {
+        path: 'orders',
+        loadComponent: () => import('./features/seller/orders/orders.component').then(m => m.SellerOrdersComponent)
       }
     ]
   },

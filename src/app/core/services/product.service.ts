@@ -23,6 +23,15 @@ export class ProductService {
     return this.http.get<ProductsResponse>(`${environment.apiUrl}/products`, { params: httpParams });
   }
 
+  getMyProducts(params: ProductQueryParams = {}): Observable<ProductsResponse> {
+    let httpParams = new HttpParams();
+    
+    if (params.page) httpParams = httpParams.set('page', params.page.toString());
+    if (params.limit) httpParams = httpParams.set('limit', params.limit.toString());
+
+    return this.http.get<ProductsResponse>(`${environment.apiUrl}/products/my-products`, { params: httpParams });
+  }
+
   getProductById(itemId: string): Observable<Product> {
     return this.http.get<Product>(`${environment.apiUrl}/products/${itemId}`);
   }

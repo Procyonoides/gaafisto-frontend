@@ -58,6 +58,19 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  getMe(): Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/auth/me`);
+  }
+
+  updateProfile(data: { firstName: string; lastName: string; email: string; gender: string }): Observable<User> {
+    return this.http.put<User>(`${environment.apiUrl}/auth/me`, data).pipe(
+      tap(updatedUser => {
+        this.storageService.setItem('user', JSON.stringify(updatedUser));
+        this.currentUserSubject.next(updatedUser);
+      })
+    );
+  }
+
   getToken(): string | null {
     return this.storageService.getItem('token');
   }

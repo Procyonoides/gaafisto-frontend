@@ -138,14 +138,14 @@
     transition: all 0.3s;
     
     &:hover {
-      border-color: #ee4d2d;
-      color: #ee4d2d;
+      border-color: var(--color-accent);
+      color: var(--color-accent);
     }
     
     &.active {
-      background: #ee4d2d;
+      background: var(--color-accent);
       color: white;
-      border-color: #ee4d2d;
+      border-color: var(--color-accent);
     }
   }
 }
@@ -195,7 +195,7 @@
     z-index: 2;
     
     .discount-badge {
-      background: #ee4d2d;
+      background: var(--color-accent);
       color: white;
       padding: 4px 8px;
       font-size: 12px;

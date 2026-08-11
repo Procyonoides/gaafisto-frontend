@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@/environments/environment';
+import { Profile } from '@/app/core/models/profile.model';
+import { Contact } from '@/app/core/models/contact.model';
 
 @Component({
   selector: 'app-about',
@@ -11,9 +13,9 @@ import { environment } from '@/environments/environment';
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss'
 })
-export class AboutComponent {
-  profile: any = {};
-  contact: any = {};
+export class AboutComponent implements OnInit {
+  profile: Profile | null = null;
+  contact: Contact | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +25,7 @@ export class AboutComponent {
   }
 
   loadProfile(): void {
-    this.http.get(`${environment.apiUrl}/profile`).subscribe({
+    this.http.get<Profile>(`${environment.apiUrl}/profile`).subscribe({
       next: (data) => {
         this.profile = data;
       },
@@ -31,7 +33,7 @@ export class AboutComponent {
         // Set default values
         this.profile = {
           namaToko: 'Gaafisto',
-          tentangToko: 'Your trusted online toy store with the best collection of action figures, building sets, model kits, and video games.',
+          description: 'Your trusted online toy store with the best collection of action figures, building sets, model kits, and video games.',
           alamatToko: 'Jl. Example No. 123',
           kotaToko: 'Jakarta',
           provinsiToko: 'DKI Jakarta',
@@ -42,7 +44,7 @@ export class AboutComponent {
   }
 
   loadContact(): void {
-    this.http.get(`${environment.apiUrl}/contact`).subscribe({
+    this.http.get<Contact>(`${environment.apiUrl}/contact`).subscribe({
       next: (data) => {
         this.contact = data;
       },
