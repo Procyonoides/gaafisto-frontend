@@ -1,38 +1,46 @@
-<div class="admin-wrapper">
-  <nav class="admin-sidebar">
-    <div class="sidebar-brand">
-      <h4>Gaafisto Admin</h4>
+<div class="admin-layout">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" routerLink="/admin/dashboard">Gaafisto Admin</a>
+      </div>
+      <ul class="nav navbar-top-links" style="float: right;">
+        <li *ngIf="currentUser">
+          <a>
+            <i class="fa fa-user"></i> {{ currentUser.firstName }} {{ currentUser.lastName }}
+            <span class="badge" *ngIf="unreadMessages > 0">{{ unreadMessages }}</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()" style="cursor: pointer;"><i class="fa fa-sign-out"></i> Logout</a>
+        </li>
+      </ul>
     </div>
-    <ul class="sidebar-nav">
-      <li [class.active]="isActiveRoute('/admin/dashboard')">
-        <a routerLink="/admin/dashboard"><i class="fa fa-home"></i> Dashboard</a>
-      </li>
-      <li [class.active]="isActiveRoute('/admin/products')">
-        <a routerLink="/admin/products"><i class="fa fa-box"></i> Products</a>
-      </li>
-      <li [class.active]="isActiveRoute('/admin/categories')">
-        <a routerLink="/admin/categories"><i class="fa fa-tags"></i> Categories</a>
-      </li>
-      <li [class.active]="isActiveRoute('/admin/shipping')">
-        <a routerLink="/admin/shipping"><i class="fa fa-truck"></i> Shipping</a>
-      </li>
-      <li [class.active]="isActiveRoute('/admin/orders')">
-        <a routerLink="/admin/orders"><i class="fa fa-shopping-cart"></i> Orders</a>
-      </li>
-    </ul>
   </nav>
 
-  <div class="admin-content">
-    <header class="admin-topbar">
-      <div class="topbar-user" *ngIf="currentUser">
-        <span>{{ currentUser.firstName }} {{ currentUser.lastName }}</span>
-        <span class="badge" *ngIf="unreadMessages > 0">{{ unreadMessages }}</span>
-        <button class="btn btn-sm btn-outline-danger" (click)="logout()">Logout</button>
-      </div>
-    </header>
+  <div class="sidebar">
+    <div class="sidebar-nav">
+      <ul class="nav">
+        <li [class.active]="isActiveRoute('/admin/dashboard')">
+          <a routerLink="/admin/dashboard"><i class="fa fa-home"></i> Dashboard</a>
+        </li>
+        <li [class.active]="isActiveRoute('/admin/products')">
+          <a routerLink="/admin/products"><i class="fa fa-box"></i> Products</a>
+        </li>
+        <li [class.active]="isActiveRoute('/admin/categories')">
+          <a routerLink="/admin/categories"><i class="fa fa-tags"></i> Categories</a>
+        </li>
+        <li [class.active]="isActiveRoute('/admin/shipping')">
+          <a routerLink="/admin/shipping"><i class="fa fa-truck"></i> Shipping</a>
+        </li>
+        <li [class.active]="isActiveRoute('/admin/orders')">
+          <a routerLink="/admin/orders"><i class="fa fa-shopping-cart"></i> Orders</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-    <main class="admin-main">
-      <router-outlet></router-outlet>
-    </main>
+  <div id="page-wrapper">
+    <router-outlet></router-outlet>
   </div>
 </div>
