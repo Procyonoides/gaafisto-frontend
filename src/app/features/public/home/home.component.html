@@ -5,20 +5,36 @@
             <div class="row">
                 <div class="col-md-9">
                     <div class="main-banner">
-                        <div class="banner-slide active">
-                            <img src="assets/images/banner1.jpg" alt="Banner 1" 
-                                 onerror="this.src='https://via.placeholder.com/870x320/667eea/ffffff?text=Flash+Sale+Up+to+80%25'">
+                        <div class="banner-slide" 
+                            *ngFor="let banner of banners; let i = index"
+                            [class.active]="i === currentBannerIndex">
+                            <img [src]="banner.image" [alt]="banner.alt"
+                                (error)="handleBannerError($event, banner.fallback)">
+                        </div>
+
+                        <button class="banner-nav banner-prev" (click)="prevBanner()">
+                            <i class="fa fa-chevron-left"></i>
+                        </button>
+                        <button class="banner-nav banner-next" (click)="nextBanner()">
+                            <i class="fa fa-chevron-right"></i>
+                        </button>
+
+                        <div class="banner-dots">
+                            <span *ngFor="let banner of banners; let i = index"
+                                class="banner-dot"
+                                [class.active]="i === currentBannerIndex"
+                                (click)="goToBanner(i)"></span>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="side-banner mb-3">
                         <img src="assets/images/side1.jpg" alt="Side 1" 
-                             onerror="this.src='https://via.placeholder.com/270x150/764ba2/ffffff?text=New+Arrivals'">
+                            onerror="this.src='https://via.placeholder.com/270x150/764ba2/ffffff?text=New+Arrivals'">
                     </div>
                     <div class="side-banner">
                         <img src="assets/images/side2.jpg" alt="Side 2" 
-                             onerror="this.src='https://via.placeholder.com/270x150/667eea/ffffff?text=Free+Shipping'">
+                            onerror="this.src='https://via.placeholder.com/270x150/667eea/ffffff?text=Free+Shipping'">
                     </div>
                 </div>
             </div>
@@ -46,7 +62,16 @@
     <section class="flash-sale-section">
         <div class="container">
             <div class="section-header">
-                <h2><i class="fa fa-bolt"></i> Flash Sale</h2>
+                <div class="flash-sale-title">
+                    <h2><i class="fa fa-bolt"></i> Flash Sale</h2>
+                    <div class="countdown">
+                        <span class="countdown-box">{{ countdown.hours }}</span>
+                        <span class="countdown-sep">:</span>
+                        <span class="countdown-box">{{ countdown.minutes }}</span>
+                        <span class="countdown-sep">:</span>
+                        <span class="countdown-box">{{ countdown.seconds }}</span>
+                    </div>
+                </div>
                 <a routerLink="/products" class="view-all">View All <i class="fa fa-chevron-right"></i></a>
             </div>
             
@@ -64,8 +89,8 @@
             <div class="products-grid" *ngIf="flashSaleProducts.length > 0">
                 <div class="product-item" *ngFor="let product of flashSaleProducts">
                     <!-- Discount Badge -->
-                    <div class="product-badge" *ngIf="product.discount && product.discount > 0">
-                        <span class="discount-badge">-{{ product.discount }}%</span>
+                    <div class="product-badge" *ngIf="product.discountPercent && product.discountPercent > 0">
+                        <span class="discount-badge">-{{ product.discountPercent }}%</span>
                     </div>
                     
                     <!-- Product Image Link -->

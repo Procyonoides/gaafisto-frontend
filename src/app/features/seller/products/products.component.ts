@@ -38,6 +38,7 @@ export class SellerProductsComponent implements OnInit {
       brand: ['', Validators.required],
       stock: [0, [Validators.required, Validators.min(0)]],
       price: [0, [Validators.required, Validators.min(0)]],
+      discountPercent: [0, [Validators.min(0), Validators.max(100)]],
       description: ['', Validators.required]
     });
   }
@@ -77,6 +78,7 @@ export class SellerProductsComponent implements OnInit {
       brand: product.brand,
       stock: product.stock,
       price: product.price,
+      discountPercent: product.discountPercent || 0,
       description: product.description
     });
     this.showModal = true;

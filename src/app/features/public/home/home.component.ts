@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { ProductService } from '@/app/core/services/product.service';
@@ -14,6 +14,12 @@ interface ProductWithExtras extends Product {
   sold?: number;
 }
 
+interface BannerSlide {
+  image: string;
+  alt: string;
+  fallback: string;
+}
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -21,10 +27,21 @@ interface ProductWithExtras extends Product {
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   flashSaleProducts: ProductWithExtras[] = [];
   loading = false;
+  
+  countdown = { hours: '00', minutes: '00', seconds: '00' };
+  private countdownInterval: any;
+
+  banners: BannerSlide[] = [
+    { image: 'assets/images/banner1.jpg', alt: 'Flash Sale', fallback: 'https://via.placeholder.com/870x320/667eea/ffffff?text=Flash+Sale+Up+to+80%25' },
+    { image: 'assets/images/banner2.jpg', alt: 'New Arrivals', fallback: 'https://via.placeholder.com/870x320/764ba2/ffffff?text=New+Arrivals' },
+    { image: 'assets/images/banner3.jpg', alt: 'Best Sellers', fallback: 'https://via.placeholder.com/870x320/dc2626/ffffff?text=Best+Sellers' }
+  ];
+  currentBannerIndex = 0;
+  private bannerInterval: any;
 
   categories = [
     { name: 'Action Figures', icon: 'fa fa-robot fa-2x' },
@@ -46,6 +63,40 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.loadProducts();
     this.loadFlashSale();
+    this.startBannerAutoplay();
+    this.startCountdown();
+  }
+
+  ngOnDestroy(): void {
+    if (this.bannerInterval) {
+      clearInterval(this.bannerInterval);
+    }
+    if (this.countdownInterval) {
+      clearInterval(this.countdownInterval);
+    }
+  }
+
+  startBannerAutoplay(): void {
+    this.bannerInterval = setInterval(() => {
+      this.nextBanner();
+    }, 4000);
+  }
+
+  nextBanner(): void {
+    this.currentBannerIndex = (this.currentBannerIndex + 1) % this.banners.length;
+  }
+
+  prevBanner(): void {
+    this.currentBannerIndex = (this.currentBannerIndex - 1 + this.banners.length) % this.banners.length;
+  }
+
+  goToBanner(index: number): void {
+    this.currentBannerIndex = index;
+  }
+
+  handleBannerError(event: Event, fallback: string): void {
+    const target = event.target as HTMLImageElement;
+    target.src = fallback;
   }
 
   loadProducts(): void {
@@ -67,11 +118,7 @@ export class HomeComponent implements OnInit {
     this.productService.getProducts({ page: 1, limit: 6 }).subscribe({
       next: (response) => {
         // Add discount and sold properties for flash sale display
-        this.flashSaleProducts = (response.products || []).map(p => ({
-          ...p,
-          discount: Math.floor(Math.random() * 50) + 10, // Random 10-60%
-          sold: Math.floor(Math.random() * 500) + 50     // Random 50-550
-        }));
+        this.flashSaleProducts = response.products.filter(p => (p.discountPercent || 0) > 0);
       },
       error: (error) => {
         console.error('Error loading flash sale:', error);
@@ -139,6 +186,31 @@ export class HomeComponent implements OnInit {
 
   getStars(rating: number): number[] {
     return Array(Math.floor(rating || 0)).fill(0);
+  }
+
+  startCountdown(): void {
+    this.updateCountdown();
+    this.countdownInterval = setInterval(() => {
+      this.updateCountdown();
+    }, 1000);
+  }
+
+  private updateCountdown(): void {
+    const now = new Date();
+    const midnight = new Date(now);
+    midnight.setHours(24, 0, 0, 0);
+
+    const diff = midnight.getTime() - now.getTime();
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    this.countdown = {
+      hours: hours.toString().padStart(2, '0'),
+      minutes: minutes.toString().padStart(2, '0'),
+      seconds: seconds.toString().padStart(2, '0')
+    };
   }
 
 }

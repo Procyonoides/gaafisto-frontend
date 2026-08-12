@@ -12,7 +12,7 @@ export interface Product {
   createdAt: Date;
   
   // Optional properties for display purposes
-  discount?: number;  // For flash sale/promo display
+  discountPercent?: number;  // For flash sale/promo display
   sold?: number;      // Number of items sold
   isNew?: boolean;    // New arrival flag
   isFeatured?: boolean; // Featured product flag
