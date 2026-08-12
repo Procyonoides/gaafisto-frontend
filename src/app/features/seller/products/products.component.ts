@@ -14,7 +14,7 @@ import { environment } from '@/environments/environment';
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss'
 })
-export class ProductsComponent implements OnInit {
+export class SellerProductsComponent implements OnInit {
   products: Product[] = [];
   loading = false;
   showModal = false;

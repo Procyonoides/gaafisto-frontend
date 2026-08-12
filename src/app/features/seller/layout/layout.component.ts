@@ -11,7 +11,7 @@ import { User } from '@/app/core/models/user.model';
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss'
 })
-export class LayoutComponent implements OnInit {
+export class SellerLayoutComponent implements OnInit {
   currentUser: User | null = null;
 
   constructor(private authService: AuthService, private router: Router) { }
