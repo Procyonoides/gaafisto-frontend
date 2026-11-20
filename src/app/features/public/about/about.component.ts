@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@/environments/environment';
@@ -8,7 +8,7 @@ import { Contact } from '@/app/core/models/contact.model';
 
 @Component({
     selector: 'app-about',
-    imports: [CommonModule, RouterLink],
+    imports: [RouterLink],
     templateUrl: './about.component.html',
     styleUrl: './about.component.scss'
 })

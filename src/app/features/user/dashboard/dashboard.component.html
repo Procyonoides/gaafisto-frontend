@@ -89,46 +89,54 @@
             <a routerLink="/user/orders" class="view-all">View All</a>
           </div>
           <div class="card-body">
-            <div *ngIf="loading" class="text-center py-4">
-              <div class="spinner-border text-primary"></div>
-            </div>
+            @if (loading) {
+              <div class="text-center py-4">
+                <div class="spinner-border text-primary"></div>
+              </div>
+            }
 
-            <div *ngIf="!loading && recentOrders.length === 0" class="text-center py-4">
-              <i class="fa fa-inbox fa-3x text-muted"></i>
-              <p class="mt-3">No orders yet</p>
-              <a routerLink="/products" class="btn btn-primary btn-sm">Start Shopping</a>
-            </div>
+            @if (!loading && recentOrders.length === 0) {
+              <div class="text-center py-4">
+                <i class="fa fa-inbox fa-3x text-muted"></i>
+                <p class="mt-3">No orders yet</p>
+                <a routerLink="/products" class="btn btn-primary btn-sm">Start Shopping</a>
+              </div>
+            }
 
-            <div *ngIf="!loading && recentOrders.length > 0" class="table-responsive">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let order of recentOrders">
-                    <td><strong>#{{ order._id.substring(order._id.length - 8) }}</strong></td>
-                    <td>{{ formatDate(order.createdAt) }}</td>
-                    <td><strong>Rp {{ formatPrice(order.totalAmount) }}</strong></td>
-                    <td>
-                      <span class="badge" [ngClass]="getStatusClass(order.status)">
-                        {{ order.status | uppercase }}
-                      </span>
-                    </td>
-                    <td>
-                      <a [routerLink]="['/user/orders', order._id]" class="btn btn-sm btn-outline-primary">
-                        View
-                      </a>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            @if (!loading && recentOrders.length > 0) {
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Date</th>
+                      <th>Total</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (order of recentOrders; track order) {
+                      <tr>
+                        <td><strong>#{{ order._id.substring(order._id.length - 8) }}</strong></td>
+                        <td>{{ formatDate(order.createdAt) }}</td>
+                        <td><strong>Rp {{ formatPrice(order.totalAmount) }}</strong></td>
+                        <td>
+                          <span class="badge" [ngClass]="getStatusClass(order.status)">
+                            {{ order.status | uppercase }}
+                          </span>
+                        </td>
+                        <td>
+                          <a [routerLink]="['/user/orders', order._id]" class="btn btn-sm btn-outline-primary">
+                            View
+                          </a>
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
           </div>
         </div>
       </div>

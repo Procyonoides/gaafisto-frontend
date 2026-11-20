@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NotificationService } from '@/app/core/services/notification.service';
 import { ShippingService, Shipping } from '@/app/core/services/shipping.service';
 
 @Component({
     selector: 'app-shipping',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './shipping.component.html',
     styleUrl: './shipping.component.scss'
 })

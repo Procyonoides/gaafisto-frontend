@@ -18,47 +18,55 @@
             <label>First Name *</label>
             <input type="text" class="form-control" formControlName="firstName"
               [class.is-invalid]="submitted && f['firstName'].errors">
-            <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
-              First name is required
+              @if (submitted && f['firstName'].errors) {
+                <div class="invalid-feedback">
+                  First name is required
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <label>Last Name *</label>
+              <input type="text" class="form-control" formControlName="lastName"
+                [class.is-invalid]="submitted && f['lastName'].errors">
+                @if (submitted && f['lastName'].errors) {
+                  <div class="invalid-feedback">
+                    Last name is required
+                  </div>
+                }
+              </div>
+
+              <div class="form-group mb-3">
+                <label>Email *</label>
+                <input type="email" class="form-control" formControlName="email"
+                  [class.is-invalid]="submitted && f['email'].errors">
+                  @if (submitted && f['email'].errors) {
+                    <div class="invalid-feedback">
+                      Valid email is required
+                    </div>
+                  }
+                </div>
+
+                <div class="form-group mb-3">
+                  <label>Gender *</label>
+                  <select class="form-control" formControlName="gender"
+                    [class.is-invalid]="submitted && f['gender'].errors">
+                    <option value="">Select gender</option>
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                  </select>
+                  @if (submitted && f['gender'].errors) {
+                    <div class="invalid-feedback">
+                      Gender is required
+                    </div>
+                  }
+                </div>
+
+                <button type="submit" class="btn btn-primary" [disabled]="loading">
+                  {{ loading ? 'Saving...' : 'Save Changes' }}
+                </button>
+              </form>
             </div>
           </div>
-
-          <div class="form-group mb-3">
-            <label>Last Name *</label>
-            <input type="text" class="form-control" formControlName="lastName"
-              [class.is-invalid]="submitted && f['lastName'].errors">
-            <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
-              Last name is required
-            </div>
-          </div>
-
-          <div class="form-group mb-3">
-            <label>Email *</label>
-            <input type="email" class="form-control" formControlName="email"
-              [class.is-invalid]="submitted && f['email'].errors">
-            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-              Valid email is required
-            </div>
-          </div>
-
-          <div class="form-group mb-3">
-            <label>Gender *</label>
-            <select class="form-control" formControlName="gender"
-              [class.is-invalid]="submitted && f['gender'].errors">
-              <option value="">Select gender</option>
-              <option value="Laki-laki">Laki-laki</option>
-              <option value="Perempuan">Perempuan</option>
-            </select>
-            <div *ngIf="submitted && f['gender'].errors" class="invalid-feedback">
-              Gender is required
-            </div>
-          </div>
-
-          <button type="submit" class="btn btn-primary" [disabled]="loading">
-            {{ loading ? 'Saving...' : 'Save Changes' }}
-          </button>
-        </form>
+        </div>
       </div>
-    </div>
-  </div>
-</div>

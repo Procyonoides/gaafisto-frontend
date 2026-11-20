@@ -15,10 +15,12 @@
 
   <div class="admin-content">
     <header class="admin-topbar">
-      <div class="topbar-user" *ngIf="currentUser">
-        <span>{{ currentUser.firstName }} {{ currentUser.lastName }}</span>
-        <button class="btn btn-sm btn-outline-danger" (click)="logout()">Logout</button>
-      </div>
+      @if (currentUser) {
+        <div class="topbar-user">
+          <span>{{ currentUser.firstName }} {{ currentUser.lastName }}</span>
+          <button class="btn btn-sm btn-outline-danger" (click)="logout()">Logout</button>
+        </div>
+      }
     </header>
 
     <main class="admin-main">

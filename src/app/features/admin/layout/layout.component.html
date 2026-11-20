@@ -5,12 +5,16 @@
         <a class="navbar-brand" routerLink="/admin/dashboard">Gaafisto Admin</a>
       </div>
       <ul class="nav navbar-top-links" style="float: right;">
-        <li *ngIf="currentUser">
-          <a>
-            <i class="fa fa-user"></i> {{ currentUser.firstName }} {{ currentUser.lastName }}
-            <span class="badge" *ngIf="unreadMessages > 0">{{ unreadMessages }}</span>
-          </a>
-        </li>
+        @if (currentUser) {
+          <li>
+            <a>
+              <i class="fa fa-user"></i> {{ currentUser.firstName }} {{ currentUser.lastName }}
+              @if (unreadMessages > 0) {
+                <span class="badge">{{ unreadMessages }}</span>
+              }
+            </a>
+          </li>
+        }
         <li>
           <a (click)="logout()" style="cursor: pointer;"><i class="fa fa-sign-out"></i> Logout</a>
         </li>

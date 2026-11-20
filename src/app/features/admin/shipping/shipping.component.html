@@ -42,22 +42,26 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let s of shippings">
-              <td>{{ s.wilayah }}</td>
-              <td>Rp {{ formatPrice(s.biaya) }}</td>
-              <td>{{ s.kurir || '-' }}</td>
-              <td class="btn-table">
-                <button class="btn btn-xs btn-success" (click)="openEditModal(s)">
-                  <i class="fa fa-edit"></i>
-                </button>
-                <button class="btn btn-xs btn-danger" (click)="deleteShipping(s._id!)">
-                  <i class="fa fa-times"></i>
-                </button>
-              </td>
-            </tr>
-            <tr *ngIf="shippings.length === 0">
-              <td colspan="4" class="text-center">Belum ada data wilayah</td>
-            </tr>
+            @for (s of shippings; track s) {
+              <tr>
+                <td>{{ s.wilayah }}</td>
+                <td>Rp {{ formatPrice(s.biaya) }}</td>
+                <td>{{ s.kurir || '-' }}</td>
+                <td class="btn-table">
+                  <button class="btn btn-xs btn-success" (click)="openEditModal(s)">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-xs btn-danger" (click)="deleteShipping(s._id!)">
+                    <i class="fa fa-times"></i>
+                  </button>
+                </td>
+              </tr>
+            }
+            @if (shippings.length === 0) {
+              <tr>
+                <td colspan="4" class="text-center">Belum ada data wilayah</td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>
@@ -65,25 +69,27 @@
   </div>
 </div>
 
-<div class="modal-overlay" *ngIf="showEditModal">
-  <div class="modal-box">
-    <h5>Edit Shipping Region</h5>
-    <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
-      <input type="hidden" formControlName="_id">
-      <div class="form-group mb-3">
-        <label>Wilayah *</label>
-        <input type="text" class="form-control" formControlName="wilayah">
-      </div>
-      <div class="form-group mb-3">
-        <label>Biaya (Rp) *</label>
-        <input type="number" class="form-control" formControlName="biaya">
-      </div>
-      <div class="form-group mb-3">
-        <label>Kurir</label>
-        <input type="text" class="form-control" formControlName="kurir">
-      </div>
-      <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Save</button>
-      <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
-    </form>
+@if (showEditModal) {
+  <div class="modal-overlay">
+    <div class="modal-box">
+      <h5>Edit Shipping Region</h5>
+      <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+        <input type="hidden" formControlName="_id">
+        <div class="form-group mb-3">
+          <label>Wilayah *</label>
+          <input type="text" class="form-control" formControlName="wilayah">
+        </div>
+        <div class="form-group mb-3">
+          <label>Biaya (Rp) *</label>
+          <input type="number" class="form-control" formControlName="biaya">
+        </div>
+        <div class="form-group mb-3">
+          <label>Kurir</label>
+          <input type="text" class="form-control" formControlName="kurir">
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Save</button>
+        <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+      </form>
+    </div>
   </div>
-</div>
+}

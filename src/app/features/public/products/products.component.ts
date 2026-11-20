@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProductService } from '@/app/core/services/product.service';
@@ -11,7 +11,7 @@ import { environment } from '@/environments/environment';
 
 @Component({
     selector: 'app-products',
-    imports: [CommonModule, RouterLink, FormsModule],
+    imports: [RouterLink, FormsModule],
     templateUrl: './products.component.html',
     styleUrl: './products.component.scss'
 })

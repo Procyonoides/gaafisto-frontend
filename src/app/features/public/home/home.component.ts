@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink, Router } from '@angular/router';
 import { ProductService } from '@/app/core/services/product.service';
 import { CartService } from '@/app/core/services/cart.service';
@@ -22,7 +22,7 @@ interface BannerSlide {
 
 @Component({
     selector: 'app-home',
-    imports: [CommonModule, RouterLink],
+    imports: [RouterLink],
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'
 })

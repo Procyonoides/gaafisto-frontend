@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CartService } from '@/app/core/services/cart.service';
@@ -11,7 +11,7 @@ import { environment } from '@/environments/environment';
 
 @Component({
     selector: 'app-checkout',
-    imports: [CommonModule, ReactiveFormsModule, RouterLink, FormsModule],
+    imports: [ReactiveFormsModule, RouterLink, FormsModule],
     templateUrl: './checkout.component.html',
     styleUrl: './checkout.component.scss'
 })

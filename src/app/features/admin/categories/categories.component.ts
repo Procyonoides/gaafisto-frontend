@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from '@/app/core/services/notification.service';
@@ -12,7 +12,7 @@ interface Category {
 
 @Component({
     selector: 'app-categories',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './categories.component.html',
     styleUrl: './categories.component.scss'
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from '@/app/core/services/product.service';
 import { NotificationService } from '@/app/core/services/notification.service';
@@ -8,7 +8,7 @@ import { environment } from '@/environments/environment';
 
 @Component({
     selector: 'app-products',
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './products.component.html',
     styleUrl: './products.component.scss'
 })

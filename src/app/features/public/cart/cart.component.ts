@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink, Router } from '@angular/router';
 import { CartService } from '@/app/core/services/cart.service';
 import { AuthService } from '@/app/core/services/auth.service';
@@ -9,7 +9,7 @@ import { environment } from '@/environments/environment';
 
 @Component({
     selector: 'app-cart',
-    imports: [CommonModule, RouterLink],
+    imports: [RouterLink],
     templateUrl: './cart.component.html',
     styleUrl: './cart.component.scss'
 })
