@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NotificationService } from '@/app/core/services/notification.service';
@@ -8,6 +8,7 @@ import { ShippingService, Shipping } from '@/app/core/services/shipping.service'
     selector: 'app-shipping',
     imports: [ReactiveFormsModule],
     templateUrl: './shipping.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './shipping.component.scss'
 })
 export class ShippingComponent implements OnInit {

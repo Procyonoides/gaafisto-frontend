@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink, Router } from '@angular/router';
 import { CartService } from '@/app/core/services/cart.service';
@@ -11,6 +11,7 @@ import { environment } from '@/environments/environment';
     selector: 'app-cart',
     imports: [RouterLink],
     templateUrl: './cart.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {

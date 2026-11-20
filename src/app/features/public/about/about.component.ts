@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -10,6 +10,7 @@ import { Contact } from '@/app/core/models/contact.model';
     selector: 'app-about',
     imports: [RouterLink],
     templateUrl: './about.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './about.component.scss'
 })
 export class AboutComponent implements OnInit {

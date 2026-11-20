@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { AuthService } from '@/app/core/services/auth.service';
@@ -8,6 +8,7 @@ import { User } from '@/app/core/models/user.model';
     selector: 'app-layout',
     imports: [RouterLink, RouterOutlet],
     templateUrl: './layout.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './layout.component.scss'
 })
 export class LayoutComponent implements OnInit {

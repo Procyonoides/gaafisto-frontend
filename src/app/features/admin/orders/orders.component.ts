@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -39,6 +39,7 @@ interface Order {
     selector: 'app-orders',
     imports: [CommonModule, RouterLink, FormsModule],
     templateUrl: './orders.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './orders.component.scss'
 })
 export class OrdersComponent implements OnInit {

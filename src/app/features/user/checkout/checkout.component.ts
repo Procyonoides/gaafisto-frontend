@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -13,6 +13,7 @@ import { environment } from '@/environments/environment';
     selector: 'app-checkout',
     imports: [ReactiveFormsModule, RouterLink, FormsModule],
     templateUrl: './checkout.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent implements OnInit {

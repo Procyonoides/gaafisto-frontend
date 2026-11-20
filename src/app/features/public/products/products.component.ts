@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { environment } from '@/environments/environment';
     selector: 'app-products',
     imports: [RouterLink, FormsModule],
     templateUrl: './products.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {

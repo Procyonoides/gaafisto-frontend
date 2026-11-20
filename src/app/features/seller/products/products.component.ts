@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from '@/app/core/services/product.service';
@@ -11,6 +11,7 @@ import { environment } from '@/environments/environment';
     selector: 'app-products',
     imports: [ReactiveFormsModule],
     templateUrl: './products.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './products.component.scss'
 })
 export class SellerProductsComponent implements OnInit {

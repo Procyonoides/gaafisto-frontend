@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { AuthService } from '@/app/core/services/auth.service';
@@ -9,6 +9,7 @@ import { User } from '@/app/core/models/user.model';
     selector: 'app-header',
     imports: [RouterLink, RouterLinkActive],
     templateUrl: './header.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {

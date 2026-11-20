@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 
 import { RouterLink, Router } from '@angular/router';
 import { ProductService } from '@/app/core/services/product.service';
@@ -24,6 +24,7 @@ interface BannerSlide {
     selector: 'app-home',
     imports: [RouterLink],
     templateUrl: './home.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnDestroy {

@@ -173,7 +173,7 @@
                 <i class="fa fa-calendar"></i>
                 <div>
                   <label>Member Since</label>
-                  <p>{{ formatDate(currentUser?.createdAt!) }}</p>
+                  <p>{{ formatDate($safeNavigationMigration(currentUser?.createdAt)!) }}</p>
                 </div>
               </div>
             </div>

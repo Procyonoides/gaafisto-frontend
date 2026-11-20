@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '@/app/core/services/auth.service';
@@ -18,6 +18,7 @@ interface Order {
     selector: 'app-dashboard',
     imports: [CommonModule, RouterLink],
     templateUrl: './dashboard.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {

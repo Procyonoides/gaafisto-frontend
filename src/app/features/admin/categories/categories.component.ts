@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,7 @@ interface Category {
     selector: 'app-categories',
     imports: [ReactiveFormsModule],
     templateUrl: './categories.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderService, SellerOrder } from '@/app/core/services/order.service';
 import { NotificationService } from '@/app/core/services/notification.service';
@@ -8,6 +8,7 @@ import { environment } from '@/environments/environment';
     selector: 'app-orders',
     imports: [CommonModule],
     templateUrl: './orders.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './orders.component.scss'
 })
 export class SellerOrdersComponent implements OnInit {
