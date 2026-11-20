@@ -7,11 +7,10 @@ import { Profile } from '@/app/core/models/profile.model';
 import { Contact } from '@/app/core/models/contact.model';
 
 @Component({
-  selector: 'app-about',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './about.component.html',
-  styleUrl: './about.component.scss'
+    selector: 'app-about',
+    imports: [CommonModule, RouterLink],
+    templateUrl: './about.component.html',
+    styleUrl: './about.component.scss'
 })
 export class AboutComponent implements OnInit {
   profile: Profile | null = null;

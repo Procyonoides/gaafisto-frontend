@@ -9,11 +9,10 @@ import { Profile } from '@/app/core/models/profile.model';
 import { Contact, ContactMessage } from '@/app/core/models/contact.model';
 
 @Component({
-  selector: 'app-contact',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './contact.component.html',
-  styleUrl: './contact.component.scss'
+    selector: 'app-contact',
+    imports: [CommonModule, ReactiveFormsModule, RouterLink],
+    templateUrl: './contact.component.html',
+    styleUrl: './contact.component.scss'
 })
 export class ContactComponent implements OnInit {
   contactForm: FormGroup;

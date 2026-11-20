@@ -9,11 +9,10 @@ import { Product } from '@/app/core/models/product.model';
 import { environment } from '@/environments/environment';
 
 @Component({
-  selector: 'app-product-detail',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.scss'
+    selector: 'app-product-detail',
+    imports: [CommonModule, RouterLink],
+    templateUrl: './product-detail.component.html',
+    styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent implements OnInit {
 

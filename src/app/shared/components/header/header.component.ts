@@ -6,11 +6,10 @@ import { CartService } from '@/app/core/services/cart.service';
 import { User } from '@/app/core/models/user.model';
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+    selector: 'app-header',
+    imports: [CommonModule, RouterLink, RouterLinkActive],
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
 

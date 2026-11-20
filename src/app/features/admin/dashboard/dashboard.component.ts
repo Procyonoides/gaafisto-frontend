@@ -4,11 +4,10 @@ import { RouterLink } from '@angular/router';
 import { DashboardService, DashboardStats } from '@/app/core/services/dashboard.service';
 
 @Component({
-  selector: 'app-dashboard',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+    selector: 'app-dashboard',
+    imports: [CommonModule, RouterLink],
+    templateUrl: './dashboard.component.html',
+    styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
   stats: DashboardStats | null = null;

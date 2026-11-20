@@ -10,11 +10,10 @@ import { environment } from '@/environments/environment';
 
 
 @Component({
-  selector: 'app-products',
-  standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+    selector: 'app-products',
+    imports: [CommonModule, RouterLink, FormsModule],
+    templateUrl: './products.component.html',
+    styleUrl: './products.component.scss'
 })
 export class ProductsComponent implements OnInit {
   products: Product[] = [];

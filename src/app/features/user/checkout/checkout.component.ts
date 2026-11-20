@@ -10,11 +10,10 @@ import { CartItem } from '@/app/core/models/cart.model';
 import { environment } from '@/environments/environment';
 
 @Component({
-  selector: 'app-checkout',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, FormsModule],
-  templateUrl: './checkout.component.html',
-  styleUrl: './checkout.component.scss'
+    selector: 'app-checkout',
+    imports: [CommonModule, ReactiveFormsModule, RouterLink, FormsModule],
+    templateUrl: './checkout.component.html',
+    styleUrl: './checkout.component.scss'
 })
 export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;

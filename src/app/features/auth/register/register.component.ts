@@ -6,11 +6,10 @@ import { AuthService } from '@/app/core/services/auth.service';
 import { NotificationService } from '@/app/core/services/notification.service';
 
 @Component({
-  selector: 'app-register',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+    selector: 'app-register',
+    imports: [CommonModule, ReactiveFormsModule, RouterLink],
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
   registerForm: FormGroup;

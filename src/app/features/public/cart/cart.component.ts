@@ -8,11 +8,10 @@ import { CartItem } from '@/app/core/models/cart.model';
 import { environment } from '@/environments/environment';
 
 @Component({
-  selector: 'app-cart',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './cart.component.html',
-  styleUrl: './cart.component.scss'
+    selector: 'app-cart',
+    imports: [CommonModule, RouterLink],
+    templateUrl: './cart.component.html',
+    styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {
   cartItems: CartItem[] = [];

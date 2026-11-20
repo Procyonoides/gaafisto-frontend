@@ -5,11 +5,10 @@ import { NotificationService } from '@/app/core/services/notification.service';
 import { environment } from '@/environments/environment';
 
 @Component({
-  selector: 'app-orders',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+    selector: 'app-orders',
+    imports: [CommonModule],
+    templateUrl: './orders.component.html',
+    styleUrl: './orders.component.scss'
 })
 export class SellerOrdersComponent implements OnInit {
 

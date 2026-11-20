@@ -36,11 +36,10 @@ interface Order {
 }
 
 @Component({
-  selector: 'app-orders',
-  standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
-  templateUrl: './orders.component.html',
-  styleUrl: './orders.component.scss'
+    selector: 'app-orders',
+    imports: [CommonModule, RouterLink, FormsModule],
+    templateUrl: './orders.component.html',
+    styleUrl: './orders.component.scss'
 })
 export class OrdersComponent implements OnInit {
   orders: Order[] = [];

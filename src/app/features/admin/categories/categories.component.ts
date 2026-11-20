@@ -11,11 +11,10 @@ interface Category {
 }
 
 @Component({
-  selector: 'app-categories',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss'
+    selector: 'app-categories',
+    imports: [CommonModule, ReactiveFormsModule],
+    templateUrl: './categories.component.html',
+    styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit {
 
